@@ -2,6 +2,7 @@ import { ImageResponse } from "next/og";
 import { studio } from "@/lib/data";
 import { unsplash } from "@/lib/utils";
 
+export const dynamic = "force-static";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 

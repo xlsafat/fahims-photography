@@ -11,12 +11,12 @@ export function cn(...inputs: ClassValue[]) {
  * replace the `id` values in lib/data.ts and every size variant updates itself.
  *
  * A local asset (any id starting with "/", e.g. "/images/fahim-work-lake.jpg")
- * passes straight through — Next's own image optimizer handles sizing for
- * those, so every call site can keep writing unsplash(img.id, w, h) without
- * caring whether a given photo is a real upload or an Unsplash placeholder.
+ * passes straight through, prefixed with the deployment's basePath — so
+ * every call site can keep writing unsplash(img.id, w, h) without caring
+ * whether a given photo is a real upload or an Unsplash placeholder.
  */
 export function unsplash(id: string, width: number, height?: number) {
-  if (id.startsWith("/")) return id;
+  if (id.startsWith("/")) return `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}${id}`;
 
   const params = new URLSearchParams({
     auto: "format",

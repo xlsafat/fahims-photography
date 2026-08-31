@@ -20,7 +20,8 @@ const manrope = Manrope({
   display: "swap",
 });
 
-const siteUrl = "https://www.fahimsphotography.com";
+// Update this once/if a custom domain is attached to GitHub Pages.
+const siteUrl = "https://xlsafat.github.io/fahims-photography";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -37,6 +38,13 @@ export const metadata: Metadata = {
     "fine art wedding photography",
   ],
   authors: [{ name: studio.firstName }],
+  // Unlike openGraph.images, metadata.icons is NOT resolved against
+  // metadataBase — spell these out as absolute URLs so they stay correct
+  // on GitHub Pages' /repo-name/ basePath.
+  icons: {
+    icon: `${siteUrl}/icon`,
+    apple: `${siteUrl}/apple-icon`,
+  },
   openGraph: {
     title: studio.name,
     description: studio.subTagline,
