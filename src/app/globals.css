@@ -1,0 +1,240 @@
+@import "tailwindcss";
+
+:root {
+  /* -- Warm, editorial palette (never pure black/white) -- */
+  --color-ivory: #faf5ec;
+  --color-cream: #f3e9d9;
+  --color-sand: #e9dac0;
+  --color-peach: #e7c3a4;
+  --color-terracotta: #bd5b38;
+  --color-terracotta-deep: #9a4830;
+  --color-flame: #d8492c;
+  --color-sage: #737a5c;
+  --color-charcoal: #26221d;
+  --color-charcoal-soft: #3a342c;
+  --color-warmgray: #8f8477;
+  --color-line: rgba(38, 34, 29, 0.12);
+
+  /* Gallery mood — swapped per active category via [data-theme] below.
+     Defaults match the site's neutral palette for untethered categories. */
+  --gallery-bg: var(--color-cream);
+  --gallery-accent: var(--color-terracotta);
+  --gallery-accent-light: var(--color-peach);
+  --gallery-accent-deep: var(--color-terracotta-deep);
+
+  --ease-editorial: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-soft: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* Six vivid, tasteful moods for the Featured Work gallery — one per
+   category tab. Backgrounds stay light so body text (fixed to charcoal
+   utility classes) keeps full contrast; only the accent + wash shift. */
+[data-theme="wedding"] {
+  --gallery-bg: #fdeef2;
+  --gallery-accent: #e63e6d;
+  --gallery-accent-light: #f9b8cb;
+  --gallery-accent-deep: #c21f52;
+}
+
+[data-theme="portraits"] {
+  --gallery-bg: #fdf3e0;
+  --gallery-accent: #e8960c;
+  --gallery-accent-light: #f8d896;
+  --gallery-accent-deep: #b8720a;
+}
+
+[data-theme="fashion"] {
+  --gallery-bg: #fcebf7;
+  --gallery-accent: #e011a0;
+  --gallery-accent-light: #f5a8de;
+  --gallery-accent-deep: #a80876;
+}
+
+[data-theme="travel"] {
+  --gallery-bg: #fff2e8;
+  --gallery-accent: #ff6b35;
+  --gallery-accent-light: #7dd8ce;
+  --gallery-accent-deep: #d94a1b;
+}
+
+[data-theme="editorial"] {
+  --gallery-bg: #f3effd;
+  --gallery-accent: #7c3aed;
+  --gallery-accent-light: #c4b5fd;
+  --gallery-accent-deep: #5b21b6;
+}
+
+[data-theme="lifestyle"] {
+  --gallery-bg: #eaf9f1;
+  --gallery-accent: #1fa971;
+  --gallery-accent-light: #a7e8cc;
+  --gallery-accent-deep: #147a52;
+}
+
+@theme inline {
+  --color-ivory: var(--color-ivory);
+  --color-cream: var(--color-cream);
+  --color-sand: var(--color-sand);
+  --color-peach: var(--color-peach);
+  --color-terracotta: var(--color-terracotta);
+  --color-terracotta-deep: var(--color-terracotta-deep);
+  --color-flame: var(--color-flame);
+  --color-sage: var(--color-sage);
+  --color-charcoal: var(--color-charcoal);
+  --color-charcoal-soft: var(--color-charcoal-soft);
+  --color-warmgray: var(--color-warmgray);
+  --color-line: var(--color-line);
+
+  --font-serif: var(--font-fraunces);
+  --font-sans: var(--font-manrope);
+
+  --animate-marquee: marquee 32s linear infinite;
+  --animate-fade-up: fade-up 0.9s var(--ease-editorial) forwards;
+
+  --breakpoint-xs: 30rem;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(1.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--color-ivory);
+}
+
+body {
+  background: var(--color-ivory);
+  color: var(--color-charcoal);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-terracotta);
+  color: var(--color-ivory);
+}
+
+/* Sections offset for the sticky nav when jumping to an anchor */
+[id] {
+  scroll-margin-top: 5.5rem;
+}
+
+.font-serif-display {
+  font-family: var(--font-serif);
+  font-optical-sizing: auto;
+}
+
+/* Site-wide film-grain layer: fixed, sits above content, below chrome. */
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  pointer-events: none;
+  opacity: 0.035;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+}
+
+/* Custom cursor: hide the system pointer once the companion cursor is
+   active, but let form fields keep their native text-input cursor. */
+.custom-cursor-active {
+  cursor: none;
+}
+.custom-cursor-active input,
+.custom-cursor-active textarea,
+.custom-cursor-active select {
+  cursor: auto;
+}
+
+/* Custom scrollbar, warm-toned */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-ivory);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-sand);
+  border-radius: 999px;
+}
+
+/* Focus states kept visible for accessibility, styled to match palette */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--color-terracotta);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Native scroll-driven animation (progressive enhancement).
+   In supporting browsers, images gently settle into place as they
+   cross the viewport, driven directly by scroll position rather
+   than a JS observer. Falls back silently everywhere else because
+   the initial state (in Reveal components) is not opacity:0 here. */
+@supports (animation-timeline: view()) {
+  .scroll-drive {
+    animation: scroll-reveal linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 30%;
+  }
+
+  .scroll-drive-scale {
+    animation: scroll-scale linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 40%;
+  }
+}
+
+@keyframes scroll-reveal {
+  from {
+    opacity: 0.35;
+    transform: translateY(3.5rem) scale(0.98);
+    filter: saturate(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: saturate(1);
+  }
+}
+
+@keyframes scroll-scale {
+  from {
+    transform: scale(1.12);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .scroll-drive,
+  .scroll-drive-scale {
+    animation: none !important;
+  }
+}
